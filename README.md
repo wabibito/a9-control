@@ -34,15 +34,34 @@ widget to your panel the first time it starts.
 
 ## What it does
 
-### Live monitoring
+### An Overview you arrange yourself
 
-APU temperature and power, CPU and GPU load and clocks, RAM, and the GPU's
-memory: its dedicated VRAM plus the **shared pool it borrows from system RAM**
-(up to 64 GB on the 128 GB model). The NPU's clock, and the temperatures of
-the SSD, both Ethernet ports and the Wi-Fi card. Each reading has a two-minute
-graph, kept by the service so the app opens with history already drawn.
+Choose which tiles you see and **drag them into the order you want**, or use
+**Customize** to switch tiles and cards on and off. Fourteen tiles to pick from:
+APU temperature and power, CPU load and clock, GPU load, clock and temperature,
+memory, GPU memory, room for models, dedicated and shared GPU memory, memory
+clock and the NPU, plus cards for the apps using the GPU and the SSD, Ethernet
+and Wi-Fi temperatures. Every tile has a two-minute graph, kept by the service,
+so one you add opens with its history drawn. **The top-bar menu and the Plasma
+widget show the same layout**: arrange it once, see it everywhere.
 
 ![Sensors](docs/screenshots/01-overview-sensors.png)
+
+### Made for local AI
+
+The A9 Mega's GPU borrows its memory from the 128 GB of system RAM, so the
+numbers that matter when you run models are different:
+
+* **Room for models**: how much more the GPU can take right now, bounded by the
+  RAM the rest of the system leaves free.
+* **GPU memory in use**, split into the dedicated carve-out and the shared pool.
+* **Using the GPU**: each process holding GPU memory (an `ollama` or
+  `llama-server` service included) and its share of GPU time.
+* Memory and fabric clocks, and the NPU.
+
+```sh
+a9 ai        # the same in a terminal
+```
 
 ### Profiles and tuning
 
@@ -64,15 +83,15 @@ desktop rewrites them.
 ### Top-bar menu
 
 The APU temperature in the top bar, and a dashboard one click away: a gauge,
-tiles for load and memory, the other sensors, profile buttons, and CPU, GPU,
-sleep and alert settings. It follows the shell's accent colour and light/dark
-style.
+your Overview's tiles and cards, profile buttons, and CPU, GPU, sleep and alert
+settings. It scrolls when you pick more tiles than the screen has room for, and
+follows the shell's accent colour and light/dark style.
 
 ![Top-bar menu](docs/screenshots/06-topbar-menu.png)
 
 ### KDE Plasma panel widget
 
-The same dashboard and controls as a Plasma 6 panel widget.
+The same dashboard, layout and controls as a Plasma 6 panel widget.
 
 ### System
 
@@ -99,6 +118,8 @@ with one password prompt. From a terminal: `a9 update`.
 
 ```sh
 a9 status                          # everything at a glance
+a9 ai                              # room for models and what is using the GPU
+a9 overview --add mclk             # change the Overview (app, menu and widget)
 a9 monitor                         # live temperature / power / load
 a9 use performance                 # switch profile (stock or custom)
 a9 cpu --max-mhz 3500 --boost off  # cap the CPU
