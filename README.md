@@ -28,6 +28,20 @@ sudo dnf install ./a9-control-*.noarch.rpm           # Fedora / RHEL
 sudo pacman -U ./a9-control-*-any.pkg.tar.zst        # Arch / CachyOS / EndeavourOS
 ```
 
+### Two versions: pick one
+
+The app, the top-bar menu, the Plasma widget and the `a9` command are the same
+in both. They differ in the background service that holds the privileges:
+
+* `a9-control` (Python): installs on Ubuntu, Fedora and Arch.
+* `a9-control-rs` (Rust, Ubuntu 24.04+ on x86_64): the same service compiled,
+  using a few megabytes of memory and next to no CPU while it runs.
+
+```sh
+sudo apt install ./a9-control-rs_*_amd64.deb      # replaces a9-control; settings carry over
+sudo apt install a9-control                       # and back
+```
+
 **Log out and back in once after installing.** GNOME only picks up the top-bar
 menu at login; the app enables it for you. On KDE Plasma the app adds its
 widget to your panel the first time it starts.
